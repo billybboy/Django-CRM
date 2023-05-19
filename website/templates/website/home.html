@@ -2,14 +2,54 @@
 
 {% block content %}
 
-<div class="col-md-6 offset-md-3">
 
 {% if user.is_authenticated %}
 
-<h1>Hello World</h1>
+<h3>Records</h3>
+
+<table class="table table-striped table-hover table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Address</th>
+      <th scope="col">Created_at</th>
+      <th scope="col">Updated_at</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    
+  {% if records %}
+    {% for record in records %}
+      <tr>
+        <td><a href="{% url 'website:record' record.id %}">{{ record.id }}</a></td>
+        <td>{{ record.first_name }}
+            {{ record.last_name }}</td>
+        <td>{{ record.email }}</td>
+        <td>{{ record.phone }}</td>
+        <td>{{ record.zipcode }}
+            {{ record.address }}
+            {{ record.city }}
+            {{ record.state }}</td>
+        
+        <td>{{ record.created_at|date }}</td>
+        <td>{{ record.updated_at|date }}</td>
+        
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 {% else %}
 
+<h1>There are no records</h1>
+
+{% endif %}
+
+{% else %}
+<div class="col-md-6 offset-md-3">
 <h1>Login</h1>
 </br>
 <form method="POST" action="{% url 'website:home' %}">
@@ -30,9 +70,8 @@
       </form>
 
 </form>
-
-
 </div>
+
 
 {% endif %}
 {% endblock %}
