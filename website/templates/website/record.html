@@ -28,6 +28,9 @@
       <a href="{% url 'website:home' %}" class="btn btn-primary">Return</a>
       <a href="{% url 'website:delete_record' customer_record.id %}" class="btn btn-danger">Delete</a>
       <a href="{% url 'website:update_record' customer_record.id %}" class="btn btn-secondary">Update Record</a>
+      {% if next_record_pk %}
+      <a href="{% url 'website:record' next_record_pk %}" class="btn btn-primary">Next Record</a>
+      {% endif %}
     </div>
   </div>
 

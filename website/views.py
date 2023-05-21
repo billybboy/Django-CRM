@@ -53,8 +53,10 @@ def register_user(request):
 def customer_record(request, pk):
     if request.user.is_authenticated:
         customer_record = Record.objects.get(id=pk)
+        next_record = Record.objects.filter(pk__lt=customer_record.pk).order_by('-updated_at').first()
         return render(request, 'website/record.html', {
-            'customer_record': customer_record
+            'customer_record': customer_record,
+            'next_record_pk': next_record.pk if next_record else None
         })
     else:
         messages.success(request, "You Must Be Logged In To View The Record")
